@@ -10,6 +10,7 @@ import ru.vsu.grammar.converter.api.Rule
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.io.OutputStream
+import java.io.OutputStreamWriter
 import java.util.*
 
 /**
@@ -29,7 +30,11 @@ class GrammarIO {
     }
 
     fun write(grammar: Grammar, output: OutputStream) {
-        throw NotImplementedError()
+        val writer = OutputStreamWriter(output)
+        val json = processGrammar(grammar)
+        json.writeJSONString(writer)
+        writer.flush()
+        logger.info { "Grammar writing complete" }
     }
 
     private fun processJSON(root: JSONObject): Grammar {
@@ -72,5 +77,37 @@ class GrammarIO {
         logger.debug { "rules $rules" }
 
         return Grammar(start, terminals, nonTerminals, rules)
+    }
+
+    private fun processGrammar(grammar: Grammar): JSONObject {
+        val root = JSONObject()
+        root["start"] = grammar.startRule
+
+        val terminals = JSONArray()
+        root["terminals"] = terminals
+        grammar.terminals.forEach { terminals.add(it) }
+
+        val nonTerminals = JSONArray()
+        root["nonTerminals"] = nonTerminals
+        grammar.nonTerminals.forEach { nonTerminals.add(it) }
+
+        val rules = JSONArray()
+        root["rules"] = rules
+        grammar.rules.flatMap { it.value } .forEach {
+            val rule = JSONObject()
+            rules.add(rule)
+
+            rule["from"] = it.source
+
+            val to = JSONArray()
+            rule["to"] = to
+            it.targets.forEach { seq ->
+                val data = JSONArray()
+                to.add(data)
+                seq.forEach { data.add(it) }
+            }
+        }
+
+        return root
     }
 }
