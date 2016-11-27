@@ -2,6 +2,7 @@ package ru.vsu.grammar.converter.alg4
 
 import ru.vsu.grammar.converter.api.Converter
 import ru.vsu.grammar.converter.api.Grammar
+import java.util.*
 
 /**
  * TODO: javadoc
@@ -9,6 +10,13 @@ import ru.vsu.grammar.converter.api.Grammar
  */
 class Algorithm4 : Converter {
     override fun convert(grammar: Grammar): Grammar {
+        val epsRules = HashSet<String>()
+        grammar.rules.forEach { rule ->
+            rule.value.targets.forEach {
+
+            }
+
+        }
         return grammar
     }
 }

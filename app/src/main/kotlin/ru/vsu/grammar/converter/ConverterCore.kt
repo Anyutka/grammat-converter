@@ -14,14 +14,9 @@ class ConverterCore {
     companion object : KLogging()
 
     fun convert(input: Grammar): Grammar {
-        logger.debug { "Perform algorithm 4" }
-        val alg4 = Algorithm4()
-        val alg4res = alg4.convert(input)
-        logger.debug { "Algorithm 4 result: $alg4res" }
-
         logger.info { "Perform algorithm 5" }
         val alg5 = Algorithm5()
-        val alg5res = alg5.convert(alg4res)
+        val alg5res = alg5.convert(input)
         logger.debug { "Algorithm 5 result: $alg5res" }
 
         return alg5res

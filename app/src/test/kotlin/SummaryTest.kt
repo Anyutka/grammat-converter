@@ -13,7 +13,7 @@ import java.nio.file.Paths
  */
 @RunWith(JUnitPlatform::class)
 class SummaryTest : Spek({
-    it("should be not filed") {
+    it("should not failed") {
         val file = Paths.get("./target/data/test.json").toFile()
         file.mkdirs()
         file.delete()

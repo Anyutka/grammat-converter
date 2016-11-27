@@ -9,16 +9,15 @@ import java.util.*
 data class Grammar(val startRule: String,
                    val terminals: Set<String>,
                    val nonTerminals: Set<String>,
-                   private val rulesSet: Set<Rule>) {
+                   val rulesSet: Set<Rule>) {
 
-    var rules: Map<String, Set<Rule>>
+    var rules: Map<String, Rule>
         private set
 
     init {
-        val map = HashMap<String, HashSet<Rule>>()
+        val map = HashMap<String, Rule>()
         rulesSet.forEach { rule ->
-            val set = map.computeIfAbsent(rule.source) { key -> HashSet<Rule>() }
-            set += rule
+            map += Pair(rule.source, rule)
         }
         rules = map
     }

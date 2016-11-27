@@ -5,6 +5,7 @@ import mu.KLogging
 import org.json.simple.JSONArray
 import org.json.simple.JSONObject
 import org.json.simple.parser.JSONParser
+import ru.vsu.grammar.converter.api.EPSILON
 import ru.vsu.grammar.converter.api.Grammar
 import ru.vsu.grammar.converter.api.Rule
 import java.io.InputStream
@@ -65,7 +66,7 @@ class GrammarIO {
             to.map { it as JSONArray } .forEach { targetsData ->
                 val list = ArrayList<String>()
                 targetsData.map { it as String }.forEach { target ->
-                    if (!nonTerminals.contains(target) && !terminals.contains(target))
+                    if (!nonTerminals.contains(target) && !terminals.contains(target) && target!=EPSILON)
                         throw IllegalArgumentException("Rule [$target] does not presented in non data")
                     list += target
                 }
@@ -93,15 +94,15 @@ class GrammarIO {
 
         val rules = JSONArray()
         root["rules"] = rules
-        grammar.rules.flatMap { it.value } .forEach {
+        grammar.rules.forEach {
             val rule = JSONObject()
             rules.add(rule)
 
-            rule["from"] = it.source
+            rule["from"] = it.value.source
 
             val to = JSONArray()
             rule["to"] = to
-            it.targets.forEach { seq ->
+            it.value.targets.forEach { seq ->
                 val data = JSONArray()
                 to.add(data)
                 seq.forEach { data.add(it) }

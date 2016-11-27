@@ -24,6 +24,11 @@
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-test-junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>ru.vsu</groupId>
+            <artifactId>alg4</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

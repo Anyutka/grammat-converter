@@ -1,12 +1,12 @@
 {
   "startRule": "S",
-  "terminals": ["a", "b", "+"],
-  "nonTerminals": ["S", "T"],
+  "terminals": ["b", "c"],
+  "nonTerminals": ["A", "S"],
   "rules": [{
     "from": "S",
-    "to": [["T"], ["T", "+", "S"]]
+    "to": [["eps"], ["c", "A"]]
   }, {
-    "from": "T",
-    "to": [["a"], ["b"]]
+    "from": "A",
+    "to": [["c", "A"], ["b", "A"], ["eps"]]
   }]
 }
