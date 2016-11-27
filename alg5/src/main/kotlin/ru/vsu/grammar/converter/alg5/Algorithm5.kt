@@ -16,8 +16,8 @@ class Algorithm5 : Converter {
     override fun convert(grammar: Grammar): Grammar {
         logger.debug { "Perform algorithm 4" }
         val alg4 = Algorithm4()
-        val alg4res = alg4.convert(grammar)
+        val alg4res = alg4.getNonShorterNotTerminals(grammar)
         logger.debug { "Algorithm 4 result: $alg4res" }
-        return alg4res
+        return grammar
     }
 }
