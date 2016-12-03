@@ -15,10 +15,10 @@ class Algorithm4 {
     companion object : KLogging()
 
     fun getNonShorterNotTerminals(grammar: Grammar): Set<String> {
-        return getDependenciesEpsilonRules(grammar, getGrammarEpsilonRules(grammar))
+        return getDependenciesEpsilonRules(grammar, getEpsilonRules(grammar))
     }
 
-    private fun getGrammarEpsilonRules(grammar: Grammar): Set<String> {
+    private fun getEpsilonRules(grammar: Grammar): Set<String> {
         return grammar.rules.filter { rule ->
             rule.value.targets.any {
                 it.size == 1 && it.first() == EPSILON

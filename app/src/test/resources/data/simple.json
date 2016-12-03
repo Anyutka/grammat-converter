@@ -4,7 +4,7 @@
   "nonTerminals": ["A", "S", "B"],
   "rules": [{
     "from": "S",
-    "to": [["eps"], ["c", "A"]]
+    "to": [["eps"], ["c", "B", "A", "B"]]
   }, {
     "from": "A",
     "to": [["c", "A"], ["b", "A"], ["eps"]]
