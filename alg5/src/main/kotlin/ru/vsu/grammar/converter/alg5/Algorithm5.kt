@@ -29,12 +29,12 @@ class Algorithm5 : Converter {
         }
         val noEpsilonRules = mutableMapOf(*rulesList.map { Pair(it.source, it) }.toTypedArray())
 
-        val newStartRule = grammar.startRule
-        val newNonTerminals = grammar.nonTerminals
+        var newStartRule = grammar.startRule
+        var newNonTerminals = grammar.nonTerminals
         val newRules = generateNewRules(alg4res, noEpsilonRules)
         if (grammar.startRule in alg4res) {
-            val newStartRule = grammar.startRule + "'"
-            val newNonTerminals = (grammar.nonTerminals as MutableSet<String>).add(newStartRule)
+            newStartRule += "'"
+            newNonTerminals += newStartRule
             newRules.put(newStartRule, Rule(newStartRule, setOf(listOf(grammar.startRule))))
         }
 
